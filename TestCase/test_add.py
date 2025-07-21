@@ -1,14 +1,18 @@
+import os
+
+from common.Logger import Log
 
 
-
-class Test_add ():
+class Test_add:
 
     def setup_class(self):
-        pass
+        file = os.path.basename(__file__)
+        log = Log(file)
+        self.logger = log.Logger()  # ✅ 用 self 没问题
+        self.logger.info("setup_class called")
 
     def teardown_class(self):
-        pass
-
+        self.logger.info("teardown_class called")
 
     def test_one(self):
-        pass
+        self.logger.info("test_one called")
