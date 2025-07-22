@@ -29,11 +29,16 @@ def creater_file(suffix=""):
 
 class Log():
 
-    def __init__(self, name, level='DEBUG', suffix=""):
+    def __init__(self,name,level='DEBUG', suffix=""):
+        #日志器名字
         self.__name = name
+        #log的绝对路径
         self.__path = creater_file(suffix)
+        #日志输入级别 默认DEBUG调试级别
         self.__level = level
+        #创建日志器 传入名字
         self.__logger = logging.getLogger(self.__name)
+        #输出日志级别 传入级别
         self.__logger.setLevel(self.__level)
         """
         日志等级有
