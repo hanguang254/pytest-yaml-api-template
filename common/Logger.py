@@ -10,20 +10,18 @@ import sys
 import time
 
 
-def creater_file():
-    # 路径
-    log_dir = os.path.dirname(os.getcwd())+'\\logout\\'
-    # print(log_dir)
-    # 日志存放地址
+def creater_file(suffix=""):
+    # 日志目录
+    log_dir = os.path.join(os.path.dirname(os.getcwd()), 'logout')
     if not os.path.exists(log_dir):
         os.mkdir(log_dir)
-    else:
-        pass
-    now_time = time.strftime("%Y%m%d%H%M",time.localtime(time.time()))
-    # print(now_time)
-    # 获取时间格式：年-月-日-时钟
-    log_file = log_dir + now_time +'.log'
-    # print(log_file)
+
+    # 时间戳
+    now_time = time.strftime("%Y%m%d%H%M", time.localtime(time.time()))
+
+    # 拼接日志文件名
+    filename = f"{now_time}_{suffix}.log" if suffix else f"{now_time}.log"
+    log_file = os.path.join(log_dir, filename)
 
     return log_file
 
@@ -31,16 +29,11 @@ def creater_file():
 
 class Log():
 
-    def __init__(self,name,level='DEBUG'):
-        #日志器名字
+    def __init__(self, name, level='DEBUG', suffix=""):
         self.__name = name
-        #log的绝对路径
-        self.__path = creater_file()
-        #日志输入级别 默认DEBUG调试级别
+        self.__path = creater_file(suffix)
         self.__level = level
-        #创建日志器 传入名字
         self.__logger = logging.getLogger(self.__name)
-        #输出日志级别 传入级别
         self.__logger.setLevel(self.__level)
         """
         日志等级有
